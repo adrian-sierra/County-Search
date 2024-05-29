@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sierra County - Disclaimer</title>
+  </head>
+  <body>
+    <h1 style="text-align: center">County Search</h1>
+    <form action="#">
+      <h2>ADD</h2>
+      <div style="display: grid; width: min(50%, 350px); margin-bottom: 1rem">
+        <label for="plaintiff">Plaintiff</label>
+        <input type="text" name="plaintiff" />
+
+        <label for="last-name">Last Name</label>
+        <input type="text" name="last-name" required />
+
+        <label for="first-name">First Name</label>
+        <input type="text" name="first-name" required />
+
+        <label for="middle-name">Middle Name</label>
+        <input type="text" name="middle-name" />
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" name="dob" required />
+
+        <label for="case-type">Case Type</label>
+        <select name="case-type" required>
+          <option value="criminal">Criminal</option>
+          <option value="civil">Civil</option>
+        </select>
+      </div>
+
+      <button type="submit">Add</button>
+    </form>
+  </body>
+</html>

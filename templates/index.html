@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sierra County - Disclaimer</title>
+  </head>
+  <body>
+    <h1 style="text-align: center">County Search</h1>
+    <h2>ADD</h2>
+    <form action="/" method="POST">
+      <div style="display: grid; width: min(50%, 350px); margin-bottom: 1rem">
+        <label for="plaintiff">Plaintiff</label>
+        <input type="text" name="plaintiff" id="plaintiff" />
+
+        <label for="last-name">Last Name</label>
+        <input type="text" name="last-name" id="last-name" required />
+
+        <label for="first-name">First Name</label>
+        <input type="text" name="first-name" id="first-name" required />
+
+        <label for="middle-name">Middle Name</label>
+        <input type="text" name="middle-name" id="middle-name" />
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" name="dob" id="dob" required />
+
+        <label for="case-type">Case Type</label>
+        <select name="case-type" id="case-type" required>
+          <option value="criminal">Criminal</option>
+          <option value="civil">Civil</option>
+        </select>
+      </div>
+
+      <button type="submit">Add</button>
+    </form>
+    <h2 style="margin-top: 3rem">SEARCH</h2>
+    <form action="/" method="GET">
+      <div style="display: grid; width: min(50%, 350px); margin-bottom: 1rem">
+        <label for="last-name">Last Name</label>
+        <input type="text" name="last-name" id="last-name" required />
+
+        <label for="first-name">First Name</label>
+        <input type="text" name="first-name" id="first-name" required />
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" name="dob" id="dob" />
+
+        <label for="case-type">Case Type</label>
+        <select name="case-type" required>
+          <option value="criminal">Criminal</option>
+          <option value="civil">Civil</option>
+        </select>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    <div class="results" style="margin-top: 3rem">
+      <table>
+        <tr>
+          <th>Case Number</th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Date of Birth</th>
+          <th>Case Type</th>
+          <!-- <th>Actions</th> -->
+        </tr>
+        {% for case in cases %}
+        <tr>
+          <td></td>
+          <td>{{ case.last_name }}</td>
+          <td>{{ case.first_name }}</td>
+          <td>{{ case.date_of_birth }}</td>
+          <td>{{ case.case_type }}</td>
+          <td><a href="/delete/{{case.id}}">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+      <style>
+        table,
+        th,
+        td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th {
+          padding: 0.25rem 0.5rem;
+        }
+        td {
+          text-align: center;
+        }
+      </style>
+    </div>
+  </body>
+</html>
