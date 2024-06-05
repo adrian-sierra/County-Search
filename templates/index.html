@@ -7,8 +7,14 @@
   </head>
   <body>
     <h1 style="text-align: center">County Search</h1>
-    <h2>ADD</h2>
-    <form action="/" method="POST">
+    <ul>
+      <li><a href="/">Search</a></li>
+      <li><a href="/add">Add</a></li>
+      <li><a href="/results">Results</a></li>
+      <!-- <li><a href="/delete">Delete</a></li> -->
+    </ul>
+    <!-- <h2>ADD</h2> -->
+    <!-- <form action="/" method="POST">
       <div style="display: grid; width: min(50%, 350px); margin-bottom: 1rem">
         <label for="plaintiff">Plaintiff</label>
         <input type="text" name="plaintiff" id="plaintiff" />
@@ -27,13 +33,15 @@
 
         <label for="case-type">Case Type</label>
         <select name="case-type" id="case-type" required>
-          <option value="criminal">Criminal</option>
-          <option value="civil">Civil</option>
+          <option value="Criminal">Criminal</option>
+          <option value="Civil">Civil</option>
+          <option value="Traffic">Traffic</option>
         </select>
       </div>
 
       <button type="submit">Add</button>
-    </form>
+      <!-- <button>Random Record</button> -->
+    <!-- </form> -->
     <h2 style="margin-top: 3rem">SEARCH</h2>
     <form action="/" method="GET">
       <div style="display: grid; width: min(50%, 350px); margin-bottom: 1rem">
@@ -48,13 +56,16 @@
 
         <label for="case-type">Case Type</label>
         <select name="case-type" required>
-          <option value="criminal">Criminal</option>
-          <option value="civil">Civil</option>
+          <option value="All">All</option>
+          <option value="Criminal">Criminal</option>
+          <option value="Civil">Civil</option>
+          <option value="Traffic">Traffic</option>
         </select>
       </div>
       <button type="submit">Search</button>
     </form>
     <div class="results" style="margin-top: 3rem">
+      {%if cases%}
       <table>
         <tr>
           <th>Case Number</th>
@@ -66,7 +77,7 @@
         </tr>
         {% for case in cases %}
         <tr>
-          <td></td>
+          <td style="font-size: 0.8rem">{{ case.case_number }}</td>
           <td>{{ case.last_name }}</td>
           <td>{{ case.first_name }}</td>
           <td>{{ case.date_of_birth }}</td>
@@ -89,6 +100,7 @@
           text-align: center;
         }
       </style>
+      {%endif%}
     </div>
   </body>
 </html>

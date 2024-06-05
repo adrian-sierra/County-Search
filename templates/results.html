@@ -6,6 +6,51 @@
     <title>Sierra County - Disclaimer</title>
   </head>
   <body>
-    <h1 style="text-align: center">Results</h1>
+    <h1 style="text-align: center">County Search</h1>
+    <ul>
+      <li><a href="/">Search</a></li>
+      <li><a href="/add">Add</a></li>
+      <li><a href="/results">Results</a></li>
+      <!-- <li><a href="/delete">Delete</a></li> -->
+    </ul>
+    <h2>RESULTS</h1>
+    <div class="results" style="margin-top: 3rem">
+      {%if cases%}
+      <table>
+        <tr>
+          <th>Case Number</th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Date of Birth</th>
+          <th>Case Type</th>
+          <!-- <th>Actions</th> -->
+        </tr>
+        {% for case in cases %}
+        <tr>
+          <td style="font-size: 0.8rem">{{ case.case_number }}</td>
+          <td>{{ case.last_name }}</td>
+          <td>{{ case.first_name }}</td>
+          <td>{{ case.date_of_birth }}</td>
+          <td>{{ case.case_type }}</td>
+          <td><a href="/delete/{{case.id}}">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+      <style>
+        table,
+        th,
+        td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th {
+          padding: 0.25rem 0.5rem;
+        }
+        td {
+          text-align: center;
+        }
+      </style>
+      {%endif%}
+    </div>
   </body>
 </html>

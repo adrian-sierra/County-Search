@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from case_number import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -8,6 +9,7 @@ db = SQLAlchemy(app)
 
 class CountySearch(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    case_number = db.Column(db.String(30))
     plaintiff = db.Column(db.String(30))
     last_name = db.Column(db.String(15), nullable=False)
     first_name = db.Column(db.String(15), nullable=False)
@@ -21,6 +23,8 @@ class CountySearch(db.Model):
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    # case_number = caseNumberGenerator("Civil")
+    # print(case_number)
     if request.method == 'POST':
         case_plaintiff = request.form['plaintiff']
         case_lastName = request.form['last-name']
@@ -28,8 +32,10 @@ def index():
         case_middleName = request.form['middle-name']
         case_dateOfBirth = request.form['dob']
         case_caseType = request.form['case-type']
+        case_caseNumber = caseNumberGenerator(case_caseType)
 
         new_case = CountySearch(plaintiff=case_plaintiff, 
+                                case_number=case_caseNumber,
                                 last_name=case_lastName, 
                                 first_name=case_firstName, 
                                 middle_name=case_middleName, 
@@ -58,9 +64,9 @@ def delete(id):
     except:
         return "error"
 
-# @app.route('/add')
-# def add():
-#     return render_template("add.html")
+@app.route('/add')
+def add():
+    return render_template("add.html")
 
 @app.route('/results')
 def results():
