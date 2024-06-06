@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sierra County - Record</title>
+  </head>
+  <body>
+    <h1 style="text-align: center">County Search</h1>
+    <ul>
+      <li><a href="/">Search</a></li>
+      <li><a href="/add">Add</a></li>
+      <li><a href="/results">Results</a></li>
+    </ul>
+    <h2>CASE NUMBER: {{case_to_view.case_number}}</h2>
+    <div class="case-info">
+      <div
+        class="flex-group"
+        style="display: flex; align-items: center; gap: 10px"
+      >
+        <h5>Case Type:</h5>
+        <p style="font-size: 13px">{{case_to_view.case_type}}</p>
+      </div>
+      <div
+        class="flex-group"
+        style="display: flex; align-items: center; gap: 20px"
+      >
+        <h5>Case Status:</h5>
+        <p style="font-size: 13px">{{case_to_view.case_status}}</p>
+      </div>
+      <div
+        class="flex-group"
+        style="display: flex; align-items: center; gap: 20px"
+      >
+        <h5>Date Filed:</h5>
+        <p style="font-size: 13px">6/5/2024</p>
+      </div>
+      <div
+        class="flex-group"
+        style="display: flex; align-items: center; gap: 20px"
+      >
+        <h5>Citation Number:</h5>
+        <p style="font-size: 13px">{{case_to_view.citation_number}}</p>
+      </div>
+    </div>
+    <hr />
+    <div class="defendant-info">
+      <div
+        class="flex-group"
+        style="display: flex; align-items: center; gap: 20px"
+      >
+        <h3>Defendant:</h3>
+        <p>
+          {{case_to_view.last_name}}, {{case_to_view.first_name}}
+          {{case_to_view.middle_name}}
+        </p>
+      </div>
+      <p>Address: {{case_to_view.address}}</p>
+      <p>DOB: {{case_to_view.date_of_birth.split("-")[0]}}</p>
+    </div>
+    <div class="plaintiff-info">
+      <div
+        class="flex-group"
+        style="display: flex; align-items: center; gap: 20px"
+      >
+        <h3>Plaintiff:</h3>
+        <p>{{case_to_view.plaintiff}}</p>
+      </div>
+    </div>
+    <hr />
+    <div class="charges">
+      <h3>Charges:</h3>
+      <ol style="list-style-position: outside">
+        <li>
+          <div
+            class="charge"
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <p>{{case_to_view.offense}}</p>
+            <div
+              class="flex-group"
+              style="display: flex; align-items: center; gap: 20px"
+            >
+              <h4>Level:</h4>
+              <p>{{case_to_view.offense_type}}</p>
+            </div>
+            <div
+              class="flex-group"
+              style="display: flex; align-items: center; gap: 20px"
+            >
+              <h4>Date:</h4>
+              <p>{{case_to_view.offense_date}}</p>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </body>
+</html>

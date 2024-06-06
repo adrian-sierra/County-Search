@@ -64,47 +64,5 @@
       </div>
       <button type="submit">Search</button>
     </form>
-    <div class="results" style="margin-top: 3rem">
-      {%if cases%}
-      <table>
-        <tr>
-          <th>Case Number</th>
-          <th>Last Name</th>
-          <th>First Name</th>
-          <th>Date of Birth</th>
-          <th>Case Type</th>
-          <!-- <th>Actions</th> -->
-        </tr>
-        {% for case in cases %}
-        <tr>
-          <td style="font-size: 0.8rem">{{ case.case_number }}</td>
-          <td>{{ case.last_name }}</td>
-          <td>{{ case.first_name }}</td>
-          <td>{{ case.date_of_birth }}</td>
-          <td>{{ case.case_type }}</td>
-          <td style="display: grid; gap: 0.5rem">
-            <a href="">View</a>
-            <a href="">Edit</a>
-            <a href="/delete/{{case.id}}">Delete</a>
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
-      <style>
-        table,
-        th,
-        td {
-          border: 1px solid black;
-          border-collapse: collapse;
-        }
-        th {
-          padding: 0.25rem 0.5rem;
-        }
-        td {
-          text-align: center;
-        }
-      </style>
-      {%endif%}
-    </div>
   </body>
 </html>

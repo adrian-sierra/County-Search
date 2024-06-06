@@ -153,7 +153,6 @@ const TRAFFIC_OFFENSES = [
 const CIVIL_OFFENSES = [
   ["Small Claims", "Contract"],
   ["Eviction", "Landlord/Tenant"],
-  ["Dissolution", "Divorce"],
   ["Tax", "Civil Judgment"],
   ["Injury or Damage", "Civil Judgment"],
 ];

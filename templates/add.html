@@ -19,7 +19,7 @@
       <!-- <li><a href="/delete">Delete</a></li> -->
     </ul>
     <h2>ADD</h2>
-    <form action="/" method="POST">
+    <form action="/add" method="POST">
       <div style="display: grid; width: min(50%, 350px); margin-bottom: 1rem">
         <label for="plaintiff">Plaintiff</label>
         <input type="text" name="plaintiff" id="plaintiff" />
@@ -49,12 +49,14 @@
 
         <label for="case-status">Case Status</label>
         <select name="case-status" id="case-status" required>
+          <option value=""></option>
           <option value="Closed">Closed</option>
           <option value="Open">Open</option>
         </select>
 
         <label for="case-type">Case Type</label>
         <select name="case-type" id="case-type" required>
+          <option value=""></option>
           <option value="Criminal">Criminal</option>
           <option value="Civil">Civil</option>
           <option value="Traffic">Traffic</option>
@@ -69,6 +71,7 @@
 
           <label for="offense-type">Offense Type</label>
           <select name="offense-type" id="offense-type" required>
+            <option value=""></option>
             <option value="Citation">Citation</option>
             <option value="Misdemeanor">Misdemeanor</option>
             <option value="Felony">Felony</option>

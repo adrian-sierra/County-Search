@@ -159,7 +159,6 @@ function onRandomRecordClick() {
   const case_type = randomCaseType();
   const random_offense = randomOffense(case_type);
   let date_of_birth = randomDateOfBirth();
-  // console.log(typeof date_of_birth);
   document.getElementById("plaintiff").value = randomPlaintiff(case_type);
   document.getElementById("last-name").value = randomLastName();
   document.getElementById("first-name").value = randomFirstName();
@@ -173,19 +172,6 @@ function onRandomRecordClick() {
   document.getElementById("offense-date").value =
     randomOffenseDate(date_of_birth);
   document.getElementById("offense-type").value = random_offense[1];
-
-  // console.log("Random plaintiff: " + randomPlaintiff(case_type));
-  // console.log("Random last name: " + randomLastName());
-  // console.log("Random first name: " + randomFirstName());
-  // console.log("Random middle name: " + randomMiddleName());
-  // console.log("Random address: " + randomAddress());
-  // console.log("Random date of birth: " + randomDateOfBirth());
-  // console.log("Random citation number: " + randomCitationNumber());
-  // console.log("Random case status: " + randomCaseStatus());
-  // console.log("Random case type: " + case_type);
-  // console.log("Random offense: " + random_offense[0]);
-  // console.log("Random offense date: " + randomOffenseDate(date_of_birth));
-  // console.log("Random offense type: " + random_offense[1]);
 }
 
 randomRecordButton.addEventListener("click", onRandomRecordClick);
