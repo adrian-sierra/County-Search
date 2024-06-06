@@ -45,7 +45,7 @@ def index():
         try:
             db.session.add(new_case)
             db.session.commit()
-            return redirect('/')
+            return redirect('/add')
         except:
             return "error"
         

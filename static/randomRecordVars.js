@@ -132,6 +132,32 @@ const STATES = [
   "MA",
 ];
 
+const CRIMINAL_OFFENSES = [
+  ["Robbery in the First Degree", "Felony"],
+  ["Robbery in the Second Degree", "Misdemeanor"],
+  ["Assault in the First Degree", "Felony"],
+  ["Tresspass in the Second Degree", "Misdemeanor"],
+  ["Tresspass in the First Degree", "Felony"],
+  ["Assault in the Second Degree", "Misdemeanor"],
+  ["DUI 1", "Felony"],
+  ["DUI 2", "Misdemeanor"],
+];
+
+const TRAFFIC_OFFENSES = [
+  ["Speeding", "Citation"],
+  ["No Driver License", "Citation"],
+  ["Disregarded No Passing Zone", "Citation"],
+  ["Driving While License Suspended", "Citation"],
+];
+
+const CIVIL_OFFENSES = [
+  ["Small Claims", "Contract"],
+  ["Eviction", "Landlord/Tenant"],
+  ["Dissolution", "Divorce"],
+  ["Tax", "Civil Judgment"],
+  ["Injury or Damage", "Civil Judgment"],
+];
+
 export {
   CIVIL_PLAINTIFF_FIRST,
   CIVIL_PLAINTIFF_SECOND,
@@ -145,4 +171,7 @@ export {
   STREET_SUFFIX,
   CITY_NAMES,
   STATES,
+  CRIMINAL_OFFENSES,
+  TRAFFIC_OFFENSES,
+  CIVIL_OFFENSES,
 };

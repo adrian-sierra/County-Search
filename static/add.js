@@ -11,6 +11,9 @@ import {
   STREET_SUFFIX,
   CITY_NAMES,
   STATES,
+  CRIMINAL_OFFENSES,
+  TRAFFIC_OFFENSES,
+  CIVIL_OFFENSES,
 } from "./randomRecordVars.js";
 
 function randomElementSelector(list) {
@@ -100,7 +103,6 @@ function randomCaseStatus() {
 
 function randomCaseType() {
   let randomNum = Math.floor(Math.random() * (4 - 1) + 1);
-  console.log("random num: " + randomNum);
   if (randomNum === 3) {
     return "Criminal";
   } else if (randomNum === 2) {
@@ -109,28 +111,81 @@ function randomCaseType() {
   return "Traffic";
 }
 
-function randomOffense() {}
+function randomOffense(case_type) {
+  if (case_type == "Civil") {
+    return randomElementSelector(CIVIL_OFFENSES);
+  } else if (case_type == "Criminal") {
+    return randomElementSelector(CRIMINAL_OFFENSES);
+  } else if (case_type == "Traffic") {
+    return randomElementSelector(TRAFFIC_OFFENSES);
+  } else {
+    return "Unknown case type.";
+  }
+}
 
-function randomOffenseDate() {}
+function randomOffenseDate(date_of_birth) {
+  let day_of_birth = parseInt(date_of_birth.split("/")[0]);
+  let month_of_birth = parseInt(date_of_birth.split("/")[1]);
+  let year_of_birth = parseInt(date_of_birth.split("/")[2]);
+  let random_day = Math.floor(Math.random() * (31 - 1) + 1);
+  let random_month = Math.floor(Math.random() * (12 - 1) + 1);
+  let random_year = Math.floor(
+    Math.random() * (2024 - (year_of_birth + 18)) + (year_of_birth + 18)
+  );
+  while (
+    random_year === year_of_birth &&
+    random_month <= month_of_birth &&
+    random_day < day_of_birth
+  ) {
+    random_day = Math.floor(Math.random() * (31 - 1) + 1);
+    random_month = Math.floor(Math.random() * (12 - 1) + 1);
+    random_year = Math.floor(
+      Math.random() * (2024 - (year_of_birth + 18)) + (year_of_birth + 18)
+    );
+  }
 
-function randomOffenseType() {}
+  return (
+    random_month.toString() +
+    "/" +
+    random_day.toString() +
+    "/" +
+    random_year.toString()
+  );
+}
 
 const randomRecordButton = document.getElementById("random-record-button");
 
 function onRandomRecordClick() {
-  let caseType = randomCaseType();
-  console.log("Random plaintiff: " + randomPlaintiff(caseType));
-  console.log("Random last name: " + randomLastName());
-  console.log("Random first name: " + randomFirstName());
-  console.log("Random middle name: " + randomMiddleName());
-  console.log("Random address: " + randomAddress());
-  console.log("Random date of birth: " + randomDateOfBirth());
-  console.log("Random citation number: " + randomCitationNumber());
-  console.log("Random case status: " + randomCaseStatus());
-  console.log("Random case type: " + caseType);
-  console.log("Random offense: " + randomOffense());
-  console.log("Random offense date: " + randomOffenseDate());
-  console.log("Random offense type: " + randomOffenseType());
+  const case_type = randomCaseType();
+  const random_offense = randomOffense(case_type);
+  let date_of_birth = randomDateOfBirth();
+  // console.log(typeof date_of_birth);
+  document.getElementById("plaintiff").value = randomPlaintiff(case_type);
+  document.getElementById("last-name").value = randomLastName();
+  document.getElementById("first-name").value = randomFirstName();
+  document.getElementById("middle-name").value = randomMiddleName();
+  document.getElementById("address").value = randomAddress();
+  document.getElementById("dob").valueAsDate = date_of_birth;
+  document.getElementById("citation-number").value = randomCitationNumber();
+  document.getElementById("case-status").value = randomCaseStatus();
+  document.getElementById("case-type").value = case_type;
+  document.getElementById("offense").value = random_offense[0];
+  document.getElementById("offense-date").value =
+    randomOffenseDate(date_of_birth);
+  document.getElementById("offense-type").value = random_offense[1];
+
+  // console.log("Random plaintiff: " + randomPlaintiff(case_type));
+  // console.log("Random last name: " + randomLastName());
+  // console.log("Random first name: " + randomFirstName());
+  // console.log("Random middle name: " + randomMiddleName());
+  // console.log("Random address: " + randomAddress());
+  // console.log("Random date of birth: " + randomDateOfBirth());
+  // console.log("Random citation number: " + randomCitationNumber());
+  // console.log("Random case status: " + randomCaseStatus());
+  // console.log("Random case type: " + case_type);
+  // console.log("Random offense: " + random_offense[0]);
+  // console.log("Random offense date: " + randomOffenseDate(date_of_birth));
+  // console.log("Random offense type: " + random_offense[1]);
 }
 
 randomRecordButton.addEventListener("click", onRandomRecordClick);

@@ -82,7 +82,11 @@
           <td>{{ case.first_name }}</td>
           <td>{{ case.date_of_birth }}</td>
           <td>{{ case.case_type }}</td>
-          <td><a href="/delete/{{case.id}}">Delete</a></td>
+          <td style="display: grid; gap: 0.5rem">
+            <a href="">View</a>
+            <a href="">Edit</a>
+            <a href="/delete/{{case.id}}">Delete</a>
+          </td>
         </tr>
         {% endfor %}
       </table>
