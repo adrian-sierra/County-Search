@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
-import datetime
 from flask_sqlalchemy import SQLAlchemy
 from case_number import *
+from file_date import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -23,6 +23,7 @@ class CountySearch(db.Model):
     offense = db.Column(db.String(10), nullable=False)
     offense_date = db.Column(db.String(8), nullable=False)
     offense_type = db.Column(db.String(20), nullable=False)
+    file_date = db.Column(db.String(8), nullable=False)
 
     def __repr__(self):
         return '<County Search %r>' % self.id
@@ -47,10 +48,12 @@ def add():
         case_offense = request.form['offense']
         case_offenseDate = request.form['offense-date']
         case_offenseType = request.form['offense-type']
-        case_caseNumber = caseNumberGenerator(case_caseType)
-
+        case_fileDate = fileDateGenerator(case_offenseDate)
+        file_year = case_fileDate.split("/")[2]
+        case_caseNumber = caseNumberGenerator(case_caseType, file_year)
         new_case = CountySearch(
                                 case_number=case_caseNumber,
+                                file_date=case_fileDate,
                                 plaintiff=case_plaintiff, 
                                 last_name=case_lastName, 
                                 first_name=case_firstName, 
@@ -95,12 +98,7 @@ def delete(id):
 def view(id):
     case_to_view = CountySearch.query.get(id)
     return render_template("record.html", case_to_view=case_to_view)
-    # print(case_to_view)
 
-    # try:
-    #     return redirect('/results')
-    # except:
-    #     return "error"
 
 with app.app_context():
     db.create_all()
