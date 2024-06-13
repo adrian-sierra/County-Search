@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect
+from datetime import date
 from flask_sqlalchemy import SQLAlchemy
 from case_number import *
 from file_date import *
@@ -16,14 +17,14 @@ class CountySearch(db.Model):
     first_name = db.Column(db.String(15), nullable=False)
     middle_name = db.Column(db.String(15))
     address = db.Column(db.String(100))
-    date_of_birth = db.Column(db.String(8), nullable=False)
+    date_of_birth = db.Column(db.Date, nullable=False)
     citation_number = db.Column(db.String(10), nullable=False)
     case_status = db.Column(db.String(8), nullable=False)
     case_type = db.Column(db.String(10), nullable=False)
     offense = db.Column(db.String(10), nullable=False)
-    offense_date = db.Column(db.String(8), nullable=False)
+    offense_date = db.Column(db.Date, nullable=False)
     offense_type = db.Column(db.String(20), nullable=False)
-    file_date = db.Column(db.String(8), nullable=False)
+    file_date = db.Column(db.Date, nullable=False)
 
     def __repr__(self):
         return '<County Search %r>' % self.id
@@ -35,22 +36,24 @@ def index():
     
 @app.route('/add', methods=['POST', 'GET'])
 def add():
+    def convert_date(input):
+        return date(int(input.split("-")[0]), int(input.split("-")[1]), int(input.split("-")[2]))
+        
     if request.method == 'POST':
         case_plaintiff = request.form['plaintiff']
         case_lastName = request.form['last-name']
         case_firstName = request.form['first-name']
         case_middleName = request.form['middle-name']
         case_address = request.form['address']
-        case_dateOfBirth = request.form['dob']
+        case_dateOfBirth = convert_date(request.form['dob'])
         case_caseType = request.form['case-type']
         case_citationNumber = request.form['citation-number']
         case_caseStatus = request.form['case-status']
         case_offense = request.form['offense']
-        case_offenseDate = request.form['offense-date']
+        case_offenseDate = convert_date(request.form['offense-date'])
         case_offenseType = request.form['offense-type']
         case_fileDate = fileDateGenerator(case_offenseDate)
-        file_year = case_fileDate.split("/")[2]
-        case_caseNumber = caseNumberGenerator(case_caseType, file_year)
+        case_caseNumber = caseNumberGenerator(case_caseType, case_fileDate.year)
         new_case = CountySearch(
                                 case_number=case_caseNumber,
                                 file_date=case_fileDate,
@@ -80,7 +83,7 @@ def add():
 
 @app.route('/results')
 def results():
-    cases = CountySearch.query.order_by(CountySearch.last_name).all()
+    cases = CountySearch.query.order_by(CountySearch.file_date.asc()).all()
     return render_template("results.html", cases=cases)
 
 @app.route('/delete/<int:id>')

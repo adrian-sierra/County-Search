@@ -10,7 +10,6 @@ def randomSixDigits():
 def caseNumberGenerator(caseType, caseFileYear):
     caseNumber = ""
     caseType = caseType.lower()
-    # print(caseType)
     if caseType == "criminal":
         caseNumber = caseNumber + "CR"
     elif caseType == "civil":
@@ -18,7 +17,7 @@ def caseNumberGenerator(caseType, caseFileYear):
     elif caseType == "traffic":
         caseNumber = caseNumber + "TR"
     
-    caseNumber = caseNumber + "-" + caseFileYear + "-"
+    caseNumber = caseNumber + "-" + str(caseFileYear) + "-"
     caseNumber = caseNumber + randomSixDigits()
 
     return caseNumber

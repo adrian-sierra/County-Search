@@ -144,13 +144,7 @@ function randomOffenseDate(date_of_birth) {
     );
   }
 
-  return (
-    random_month.toString() +
-    "/" +
-    random_day.toString() +
-    "/" +
-    random_year.toString()
-  );
+  return random_month + "/" + random_day + "/" + random_year;
 }
 
 const randomRecordButton = document.getElementById("random-record-button");
@@ -169,7 +163,7 @@ function onRandomRecordClick() {
   document.getElementById("case-status").value = randomCaseStatus();
   document.getElementById("case-type").value = case_type;
   document.getElementById("offense").value = random_offense[0];
-  document.getElementById("offense-date").value =
+  document.getElementById("offense-date").valueAsDate =
     randomOffenseDate(date_of_birth);
   document.getElementById("offense-type").value = random_offense[1];
 }

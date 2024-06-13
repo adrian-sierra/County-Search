@@ -1,56 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sierra County - Search</title>
-  </head>
-  <body>
-    <h1 style="text-align: center">County Search</h1>
-    <ul>
-      <li><a href="/">Search</a></li>
-      <li><a href="/add">Add</a></li>
-      <li><a href="/results">Results</a></li>
-    </ul>
+{% extends "base.html" %}
+<!--  -->
+{% block title %}Search{% endblock %}
+<!--  -->
+{% block page_title %}SEARCH{% endblock %}
+<!--  -->
+{%block page_content%}
+<form action="/" method="GET">
+  <div style="display: grid; width: min(50%, 350px); margin-bottom: 1rem">
+    <label for="last-name">Last Name</label>
+    <input type="text" name="last-name" id="last-name" required />
 
-    <h2 style="margin-top: 3rem">SEARCH</h2>
-    <form action="/" method="GET">
-      <div style="display: grid; width: min(50%, 350px); margin-bottom: 1rem">
-        <label for="last-name">Last Name</label>
-        <input type="text" name="last-name" id="last-name" required />
+    <label for="first-name">First Name</label>
+    <input type="text" name="first-name" id="first-name" required />
 
-        <label for="first-name">First Name</label>
-        <input type="text" name="first-name" id="first-name" required />
+    <label for="dob">Date of Birth</label>
+    <input type="date" name="dob" id="dob" />
 
-        <label for="dob">Date of Birth</label>
-        <input type="date" name="dob" id="dob" />
+    <label for="case-status">Case Status</label>
+    <select name="case-status" id="case-status">
+      <option value="All">All</option>
+      <option value="Closed">Closed</option>
+      <option value="Open">Open</option>
+    </select>
 
-        <label for="case-status">Case Status</label>
-        <select name="case-status" id="case-status">
-          <option value="All">All</option>
-          <option value="Closed">Closed</option>
-          <option value="Open">Open</option>
-        </select>
+    <label for="case-type">Case Type</label>
+    <select name="case-type" required>
+      <option value="All">All</option>
+      <option value="Criminal">Criminal</option>
+      <option value="Civil">Civil</option>
+      <option value="Traffic">Traffic</option>
+    </select>
 
-        <label for="case-type">Case Type</label>
-        <select name="case-type" required>
-          <option value="All">All</option>
-          <option value="Criminal">Criminal</option>
-          <option value="Civil">Civil</option>
-          <option value="Traffic">Traffic</option>
-        </select>
+    <label for="case-number">Case Number</label>
+    <input type="text" name="case-number" id="case-number" />
 
-        <label for="case-number">Case Number</label>
-        <input type="text" name="case-number" id="case-number" />
+    <label for="date-file-from">Date Filed (From)</label>
+    <input type="date" name="date-file-from" id="date-file-from" />
 
-        <label for="date-file-from">Date Filed (From)</label>
-        <input type="date" name="date-file-from" id="date-file-from" />
-
-        <label for="date-file-to">Date Filed (To)</label>
-        <input type="date" name="date-file-to" id="date-file-to" />
-      </div>
-      <button type="submit">Search</button>
-      <button type="reset">Reset</button>
-    </form>
-  </body>
-</html>
+    <label for="date-file-to">Date Filed (To)</label>
+    <input type="date" name="date-file-to" id="date-file-to" />
+  </div>
+  <button type="submit">Search</button>
+  <button type="reset">Reset</button>
+</form>
+{% endblock %}
