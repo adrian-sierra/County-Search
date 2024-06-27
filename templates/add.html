@@ -12,7 +12,10 @@
 <!--  -->
 {%block page_content%}
 <form action="/add" method="POST">
-  <div style="display: grid; width: min(50%, 350px); margin-bottom: 1rem">
+  <div
+    id="add-form-div"
+    style="display: grid; width: min(50%, 350px); margin-bottom: 1rem"
+  >
     <label for="plaintiff">Plaintiff</label>
     <input type="text" name="plaintiff" id="plaintiff" />
 
@@ -51,13 +54,13 @@
 
     <div class="offense-group" style="display: grid">
       <label for="offense">Offense</label>
-      <input type="text" name="offense" id="offense" required />
+      <input type="text" name="offense" id="offense" />
 
       <label for="offense-date">Offense Date</label>
-      <input type="date" name="offense-date" id="offense-date" required />
+      <input type="date" name="offense-date" id="offense-date" />
 
       <label for="offense-type">Offense Type</label>
-      <select name="offense-type" id="offense-type" required>
+      <select name="offense-type" id="offense-type">
         <option value=""></option>
         <option value="Citation">Citation</option>
         <option value="Misdemeanor">Misdemeanor</option>
@@ -67,11 +70,14 @@
         <option value="Divorce">Divorce</option>
         <option value="Civil Judgment">Civil Judgment</option>
       </select>
-
-      <button>Add Offense</button>
     </div>
   </div>
-
+  <button id="add-offense-button" type="button">Add Offense</button>
+  <button id="remove-offense-button" type="button" style="display: none">
+    Remove Offense
+  </button>
+  <br />
+  <br />
   <button type="submit" style="text-transform: uppercase; padding: 8px">
     Add
   </button>

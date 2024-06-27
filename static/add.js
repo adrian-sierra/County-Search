@@ -14,7 +14,7 @@ import {
   CRIMINAL_OFFENSES,
   TRAFFIC_OFFENSES,
   CIVIL_OFFENSES,
-} from "./randomRecordVars.js";
+} from "./random_record_variables.js";
 
 function randomElementSelector(list) {
   return list[Math.floor(Math.random() * list.length)];
@@ -169,3 +169,26 @@ function onRandomRecordClick() {
 }
 
 randomRecordButton.addEventListener("click", onRandomRecordClick);
+
+const addOffenseButton = document.getElementById("add-offense-button");
+const removeOffenseButton = document.getElementById("remove-offense-button");
+
+function onAddOffenseButtonClick() {
+  document
+    .getElementById("add-form-div")
+    .appendChild(document.querySelector(".offense-group").cloneNode(true));
+
+  removeOffenseButton.style.display = "inline-block";
+}
+
+function onRemoveOffenseButtonClick() {
+  if (document.querySelectorAll(".offense-group").length == 2) {
+    removeOffenseButton.style.display = "none";
+  }
+  document
+    .getElementById("add-form-div")
+    .removeChild(document.querySelector(".offense-group"));
+}
+
+addOffenseButton.addEventListener("click", onAddOffenseButtonClick);
+removeOffenseButton.addEventListener("click", onRemoveOffenseButtonClick);
