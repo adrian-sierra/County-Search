@@ -17,13 +17,15 @@
     </tr>
     {% for case in cases %}
     <tr>
-      <td style="font-size: 0.8rem">{{ case.case_number }}</td>
+      <td style="font-size: 0.8rem">
+        <a href="/view/{{case.id}}"> {{ case.case_number }} </a>
+      </td>
       <td>{{ case.last_name }}</td>
       <td>{{ case.first_name }}</td>
       <td>{{ case.file_date }}</td>
       <td>{{ case.case_type }}</td>
       <td style="display: grid; gap: 0.5rem">
-        <a href="/view/{{case.id}}">View</a>
+        <!-- <a href="/view/{{case.id}}">View</a> -->
         <!-- <a href="">Edit</a> -->
         <a href="/delete/{{case.id}}">Delete</a>
       </td>

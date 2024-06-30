@@ -46,6 +46,7 @@
 <div class="charges">
   <h3>Charges:</h3>
   <ol style="list-style-position: outside">
+    {%for offense in case_to_view.offenses%}
     <li>
       <div
         class="charge"
@@ -55,23 +56,24 @@
           align-items: center;
         "
       >
-        <p>{{case_to_view.offense}}</p>
+        <p>{{offense.offense_description}}</p>
         <div
           class="flex-group"
           style="display: flex; align-items: center; gap: 20px"
         >
           <h4>Level:</h4>
-          <p>{{case_to_view.offense_type}}</p>
+          <p>{{offense.offense_type}}</p>
         </div>
         <div
           class="flex-group"
           style="display: flex; align-items: center; gap: 20px"
         >
           <h4>Date:</h4>
-          <p>{{case_to_view.offense_date}}</p>
+          <p>{{offense.offense_date}}</p>
         </div>
       </div>
     </li>
+    {%endfor%}
   </ol>
 </div>
 {% endblock %}

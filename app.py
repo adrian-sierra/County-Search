@@ -35,7 +35,7 @@ class Offense(db.Model):
     case_id = db.Column(db.Integer, db.ForeignKey('case.id'), nullable=False)
     
     def __repr__(self):
-        return '<Offense %r>' % self.id
+        return '<Offense %r>' % self.offense_description
 
 
 @app.route('/')
@@ -46,8 +46,32 @@ def index():
 def add():
     def convertDate(input):
         return date(int(input.split("-")[0]), int(input.split("-")[1]), int(input.split("-")[2]))
+    
+    def earliestFileDate(date_one, date_two):
+        if (date_one.year < date_two.year):
+            return date_one
+        elif (date_one.year > date_two.year):
+            return date_two
+        else:
+            if (date_one.month < date_two.month):
+                return date_one
+            elif (date_one.month > date_two.month):
+                return date_two
+            else:
+                if (date_one.day < date_two.day):
+                    return date_one
+                elif (date_one.day > date_two.day):
+                    return date_two
+                else:
+                    return date_one
         
     if request.method == 'POST':
+        
+        min_file_date = convertDate(request.form.getlist('offense-date')[0])
+        for i in range (1, len(request.form.getlist('offense'))):
+            min_file_date = earliestFileDate(min_file_date, convertDate(request.form.getlist('offense-date')[i]))
+        # print(min_file_date)
+
         case_plaintiff = request.form['plaintiff']
         case_lastName = request.form['last-name']
         case_firstName = request.form['first-name']
@@ -57,7 +81,7 @@ def add():
         case_caseType = request.form['case-type']
         case_citationNumber = request.form['citation-number']
         case_caseStatus = request.form['case-status']
-        case_fileDate = date(2024, 6, 25)
+        case_fileDate = fileDateGenerator(min_file_date)
         case_caseNumber = caseNumberGenerator(case_caseType, case_fileDate.year)
         new_case = Case(
                         case_number=case_caseNumber,
@@ -72,18 +96,16 @@ def add():
                         case_status=case_caseStatus,
                         case_type=case_caseType
                         )
-        
-        case_offense = request.form['offense']
-        case_offense_type = request.form['offense-type']
-        new_offense = Offense(
-                            offense_description=case_offense,
-                            offense_date=convertDate(request.form['offense-date']),
-                            offense_type=case_offense_type,
+        try:
+            db.session.add(new_case)
+            for i in range (len(request.form.getlist('offense'))):
+                offense_object_to_add = Offense(
+                            offense_description=request.form.getlist('offense')[i],
+                            offense_date=convertDate(request.form.getlist('offense-date')[i]),
+                            offense_type=request.form.getlist('offense-type')[i],
                             case=new_case
                             )
-        # print(new_offense)
-        try:
-            db.session.add_all([new_case, new_offense])
+                db.session.add(offense_object_to_add)
             db.session.commit()
             return redirect('/add')
         except:
@@ -100,8 +122,9 @@ def results():
 @app.route('/delete/<int:id>')
 def delete(id):
     case_to_delete = Case.query.get_or_404(id)
-
     try:
+        for i in range(len(case_to_delete.offenses)):
+            db.session.delete(case_to_delete.offenses[i])
         db.session.delete(case_to_delete)
         db.session.commit()
         return redirect('/results')
